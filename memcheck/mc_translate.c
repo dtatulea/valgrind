@@ -4167,6 +4167,7 @@ IRExpr* expr2vbits_Unop ( MCEnv* mce, IROp op, IRAtom* atom )
    }
 }
 
+#include "mc_x86_helpers.c"
 
 /* Worker function -- do not call directly.  See comments on
    expr2vbits_Load for the meaning of |guard|.
@@ -4215,7 +4216,8 @@ IRAtom* expr2vbits_Load_WRK ( MCEnv* mce,
          case Ity_I64:  helper = &MC_(helperc_LOADV64le);
                         hname = "MC_(helperc_LOADV64le)";
                         break;
-         case Ity_I32:  helper = &MC_(helperc_LOADV32le);
+         //case Ity_I32:  helper = &MC_(helperc_LOADV32le);
+         case Ity_I32: helper = &MC_(helperc_LOADV32be_asm);
                         hname = "MC_(helperc_LOADV32le)";
                         break;
          case Ity_I16:  helper = &MC_(helperc_LOADV16le);
@@ -4240,7 +4242,8 @@ IRAtom* expr2vbits_Load_WRK ( MCEnv* mce,
          case Ity_I64:  helper = &MC_(helperc_LOADV64be);
                         hname = "MC_(helperc_LOADV64be)";
                         break;
-         case Ity_I32:  helper = &MC_(helperc_LOADV32be);
+         //case Ity_I32:  helper = &MC_(helperc_LOADV32be);
+         case Ity_I32: helper = &MC_(helperc_LOADV32le_asm);
                         hname = "MC_(helperc_LOADV32be)";
                         break;
          case Ity_I16:  helper = &MC_(helperc_LOADV16be);
